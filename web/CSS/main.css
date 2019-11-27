@@ -1,0 +1,253 @@
+#table-header
+{
+    width: 100%;
+    position: absolute;
+}
+
+.header
+{
+    text-align: center;
+}
+
+#image-logo-pasd
+{
+    width: 80px;
+    height: 80px;
+}
+
+#image-logo-Unesp
+{
+    width: 80px;
+}
+
+.sidenav 
+{
+    color: red;
+    height: 100%;
+    width: 200px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    padding-top: 100px;
+    margin-top: 30px;
+    font-family: "Raleway","Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
+}
+
+
+.sidenavContainer {
+    background-color: white;
+}
+
+.sidenav a 
+{
+    padding: 6px 6px 6px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #033EA8;
+    display: block;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.sidenav a:hover 
+{
+    color: #01B5F2;
+}
+
+.main 
+{
+    margin-left: 200px; /* Same as the width of the sidenav */
+}
+
+@media screen and (max-height: 450px) 
+{
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+.content
+{
+    margin-left: 250px;
+    margin-top: 100px;
+}
+
+.col-lg-4:hover
+{
+    color: #f1f1f1;
+    cursor: pointer;
+}
+
+#LogoQualis
+{
+    width: 70px;
+    margin-left: 80px;
+}
+
+.sel-dep
+{
+  width: 400px;
+}
+
+#form
+{
+    width: 75%; 
+    text-align: center;
+}
+
+.data
+{
+    text-align: center;
+}
+
+#botao-visualizar:hover
+{
+    cursor: pointer;
+}
+
+#botao-visualizar
+{
+    width: 30px;
+    float: right;
+}
+
+#botao-visualizar-qualis
+{
+    width: 35px;
+    position: relative;
+    display: inline-block;
+}
+
+#btnRemoverQualis
+{
+    width: 35px;
+    position: relative;
+    display: inline-block;
+}
+
+#botao-visualizar-qualis:hover
+{
+    cursor: pointer;
+}
+
+#btnRemoverQualis:hover
+{
+    cursor: pointer;
+}
+
+
+#visualizar_qualis_table
+{
+    vertical-align: central;
+    text-align: center;
+}
+
+#teste
+{
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black
+}
+
+#botao-visualizar-qualis + #testespan
+{
+    visibility: hidden;
+    width: 70px;
+    height: 20px;
+    background-color: white;
+    color: black;
+    text-align: center;
+    position: absolute;
+    z-index: 1;
+    top: -8px;
+    left: 110%;
+    font-size: 12px;
+    font-family: Arial;
+    border: 1px solid;
+    border-radius: 1px;
+    /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+#botao-visualizar-qualis + #testespan::after{
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent black transparent transparent;
+}
+
+#botao-visualizar-qualis:hover + #testespan
+{
+    visibility: visible;
+    opacity: 1;
+}
+
+#sel-dep
+{
+    width: 50px;
+}
+
+::-webkit-input-placeholder 
+{
+  color: #346786;
+  opacity: 1; /* Firefox */
+}
+
+#remover
+{
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black
+}
+
+#btnRemoverQualis + #span-remover
+{
+    visibility: hidden;
+    width: 70px;
+    height: 20px;
+    background-color: white;
+    color: black;
+    text-align: center;
+    position: absolute;
+    z-index: 1;
+    top: -8px;
+    left: 110%;
+    font-size: 12px;
+    font-family: Arial;
+    border: 1px solid;
+    border-radius: 1px;
+    /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+#btnRemoverQualis + #span-remover::after{
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent black transparent transparent;
+}
+
+#btnRemoverQualis:hover + #span-remover
+{
+    visibility: visible;
+    opacity: 1;
+}
+
+#icon
+{
+    width: 100px; 
+    margin-left: 75px;
+}
