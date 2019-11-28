@@ -7,10 +7,11 @@ package SVL;
 
 import Controladoras.ctrDepartamento;
 import Controladoras.ctrQualis;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
-import static java.lang.System.out;
 import java.nio.file.Paths;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -84,7 +85,7 @@ public class svlQualis extends HttpServlet
                         out.print("<td id=\"nome_documento\">" + aux[0] + "</td>");
                         out.print("<td>" + aux[1] + "</td>");
                         out.print("<td><div id=\"teste\">"
-                                + "<img src=\"Imagens/visualizar.png\" alt=\"Clique aqui para visualizar\" id= \"botao-visualizar-qualis\" onclick=\"clickVisualizarQualis()\" />"
+                                + "<img src=\"Imagens/visualizar.png\" alt=\"Clique aqui para visualizar\" id= \"botao-visualizar-qualis\" onclick=\"clickVisualizar('"+aux[0]+ ";" + aux[1] + "')\" />"
                                 + "<span id=\"testespan\">Visualizar</span></div></td>");
                          out.print("<td id=\"remover_q\"><div id=\"remover\">"
                                 + "<img src=\"Imagens/lixeira.png\" alt=\"Clique aqui para remover\" id= \"btnRemoverQualis\" onclick=\"clickremover('"+aux[0]+ ";" + aux[1] + "')\"/>"
@@ -92,6 +93,18 @@ public class svlQualis extends HttpServlet
                         out.print("</tr>");
                     }
                     out.print("</table>");
+                }
+                else if(filtro.equals("down"))
+                {
+                    OutputStream output = response.getOutputStream();
+                    FileInputStream in = new FileInputStream("");
+                    byte[] buffer = new byte[4096];
+                    int length;
+                    while ((length = in.read(buffer)) > 0){
+                        output.write(buffer, 0, length);
+                    }
+                    in.close();
+                    out.flush();
                 }
                 else if(filtro.equals("del"))
                 {

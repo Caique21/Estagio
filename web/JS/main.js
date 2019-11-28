@@ -96,9 +96,31 @@ function ImportarQualis()
     });
 }
  
-function clickVisualizarQualis()
+function clickVisualizar(content)
 {
-    alert("foi");
+    event.preventDefault();
+    content = content + "";
+    var nome = content.substring(0,content.indexOf(";")); 
+    $.ajax(
+    {
+        url: 'svlQualis?down='+content,
+        method: 'GET',
+        xhrFields: 
+        {
+            responseType: 'blob'
+        },
+        success: function (data) 
+        {
+            var a = document.createElement('a');
+            var url = window.URL.createObjectURL(data);
+            a.href = url;
+            a.download = nome+'.xls';
+            document.body.append(a);
+            a.click();
+            a.remove();
+            window.URL.revokeObjectURL(url);
+        }
+    });
 }
 
 function clickremover(nome) {
