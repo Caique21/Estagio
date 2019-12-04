@@ -6,8 +6,17 @@
 package Controladoras;
 
 import Entidades.Qualis;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,5 +48,32 @@ public class ctrQualis
     public List<String> get(int cod)
     {
         return new Qualis().get(cod);
+    }
+
+    public FileInputStream getArquivo(String nome, String ano, int dep_cod)
+    {
+        InputStream is = new Qualis(nome, ano).getArquivo(dep_cod);
+        
+        byte[] buffer;
+        try 
+        {
+            if(is != null)
+            {
+                buffer = new byte[is.available()];
+                is.read(buffer);
+                File file = new File("D:/" + nome);
+                OutputStream outStream = new FileOutputStream(file.getAbsolutePath());
+                outStream.write(buffer);
+                
+                return new FileInputStream(file);
+            }
+            else
+                return null;
+        }
+        catch (IOException ex) 
+        {
+            Logger.getLogger(ctrQualis.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }        
     }
 }

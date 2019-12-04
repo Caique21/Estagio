@@ -58,9 +58,29 @@ public class Qualis
         this.periodo = periodo;
     }
 
-    public InputStream getArquivo()
+    public InputStream getArquivo(int cod)
     {
-        return arquivo;
+        if(arquivo != null)
+            return arquivo;
+        else
+        {
+            ResultSet rs = new Conexao().consultar("select qualis_documento from qualis where qualis_nome = '" + nome + "' and departamento_id = " + cod);
+            
+            try 
+            {
+                if(rs != null && rs.next())
+                {
+                    this.arquivo = rs.getBinaryStream("qualis_documento");
+                    return arquivo;
+                }
+            }
+            catch (SQLException ex) 
+            {
+                Logger.getLogger(Qualis.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
+            }
+        }
+        return null;
     }
 
     public void setArquivo(InputStream arquivo)
@@ -125,7 +145,7 @@ public class Qualis
 
     public boolean apagar(int dep_cod)
     {
-        String sql = "delete from qualis where qualis_nome = '$1', qualis_ano = '$2', departamento_id = $3";
+        String sql = "delete from qualis where qualis_nome = '$1' and qualis_ano = '$2' and departamento_id = $3";
         sql = sql.replace("$1", nome);
         sql = sql.replace("$2", periodo);
         sql = sql.replace("$3", String.valueOf(dep_cod));

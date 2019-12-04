@@ -47,7 +47,7 @@
             <div class="col s11 m7" style="width: 20%;">
                 <div class="card">
                     <div class="card-image center">
-                        <a href=""><img src="Imagens/docente.png" alt="" id="icon" /></a>
+                        <a href="Docentes.jsp"><img src="Imagens/docente.png" alt="" id="icon" /></a>
                     </div>
                     <br>
                     <div class="card-action center">

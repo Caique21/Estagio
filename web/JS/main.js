@@ -5,8 +5,7 @@
  */
 var dep;
 var cur;
-var $item;
-
+var divClone = $("#ultima-importacao").clone();
 
 
 function changeDepartamento() 
@@ -19,12 +18,14 @@ function changeDepartamento()
     {
         document.getElementById("fileInput").disabled = false;
         document.getElementById("ultima-importacao").hidden = false;
+        document.getElementById("label-ultimas-importacoes-qualis").hidden = false;
         carregaQualis();
     }
     else
     {
         document.getElementById("fileInput").disabled = true;
         document.getElementById("ultima-importacao").hidden = true;
+        document.getElementById("label-ultimas-importacoes-qualis").hidden = true;
     }
 }
 
@@ -34,16 +35,22 @@ function carregaQualis()
     let frm = $("#importar_qualis");    //form
     var d = document.getElementById("sel-dep").value;
     
-    
     jQuery.ajax(
     {
         type: "GET",
         url: "svlQualis?evento=get;dep="+d,
         data: frm.serialize(),
         success: function (data) 
-        {
+        {        
             $('#ultima-importacao').html(data);
-            document.getElementById("label-ultimas-importacoes-qualis").hidden = false;
+            if ($('#ultima-importacao').is(':empty'))
+            {
+                $("#ultima-importacao").replaceWith(divClone.clone()); 
+                alert("Não foi encontrado nenhum arquivo");
+            }
+            else   
+                document.getElementById("label-ultimas-importacoes-qualis").hidden = false;
+                
         },
         error: function (jqXHR, textStatus, errorThrown) 
         {
@@ -73,7 +80,10 @@ function ImportarQualis()
         timeout: 600000,
         success: function (data) 
         {
-            carregaQualis();
+            if(data === "gravou")
+                carregaQualis();
+            else
+                alert("Não foi possivel gravar o arquivo");
         },
         error: function (jqXHR, exception) 
         {
@@ -100,21 +110,24 @@ function clickVisualizar(content)
 {
     event.preventDefault();
     content = content + "";
-    var nome = content.substring(0,content.indexOf(";")); 
+    var nome = content.substring(0,content.indexOf(";"));
+    
     $.ajax(
     {
-        url: 'svlQualis?down='+content,
+        url: 'svlQualis?evento=down;'+content + ";" + $("#sel-dep").val(),
         method: 'GET',
         xhrFields: 
         {
-            responseType: 'blob'
+            responseType: '.xls'
         },
         success: function (data) 
         {
             var a = document.createElement('a');
-            var url = window.URL.createObjectURL(data);
+            var binaryData = [];
+            binaryData.push(data);
+            var url = window.URL.createObjectURL(new Blob(binaryData, {type: ".xls/.xslx"}));
             a.href = url;
-            a.download = nome+'.xls';
+            a.download = nome;
             document.body.append(a);
             a.click();
             a.remove();
@@ -123,7 +136,8 @@ function clickVisualizar(content)
     });
 }
 
-function clickremover(nome) {
+function clickremover(nome) 
+{
     event.preventDefault();
     
     var form = $('#importar_qualis')[0];

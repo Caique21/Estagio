@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>PASD - Importar Qualis</title>
+        <title>PASD - Docentes</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="CSS/materialize.css" rel="stylesheet" type="text/css"/>
@@ -33,8 +33,8 @@
         </nav>
         
         <div class="center" style="margin-top: 5%;">
-            <label style="text-align: center; width: 75%;font-size: 35px; color: #346786;"><b>Importar Qualis</b></label>
-            <form name="importar qualis"  method="POST" enctype="multipart/form-data" onsubmit="ImportarQualis()" id="importar_qualis">
+            <label style="text-align: center; width: 75%;font-size: 35px; color: #346786;"><b>Docentes</b></label>
+            <form name="importar qualis"  method="POST" enctype="multipart/form-data" onsubmit="ImportarCurriculo()" id="importar_qualis">
                 <div>
                     <input list="hosting-plan" name="sel-dep" type="text" placeholder="Selecione um Departamento" class="sel-dep" onchange="changeDepartamento()" id="sel-dep" style="width: 400px;">
                     <datalist id="hosting-plan" class="testeabc">
@@ -52,23 +52,20 @@
                 </div>
                 <br>
                 
-                <div class="">
-                    <input type="file" id="fileInput" name="fileInput" accept=".xls, .xlsx" disabled/>
-                    <button type="submit" id="fileExport">
-                        Importar
-                    </button>
+                <div id="div-docentes" hidden="true" style="margin-top: 15px; margin-left: 200px; margin-bottom: 5px;">
+                    <table>
+                        <tr>
+                            nasjsnaidn
+                        </tr>
+                    </table>
                 </div>
-                
-                
             </form>
         </div>
-        <br>
-        <label style="text-align: center; width: 75%;font-size:15px; color: #346786; margin-left: 250px;" hidden="true" id="label-ultimas-importacoes-qualis"><b>Ultimas importações realizadas:</b></label>
-        <div id="ultima-importacao" hidden="true" style="margin-top: 15px; margin-left: 200px; margin-bottom: 5px;">
+           
             
-        </div>
         
-        <script src="JS/main.js" type="text/javascript"></script>
+        
+        <script src="JS/docentes.js" type="text/javascript"></script>
         <script src="JS/jquery-3.4.1.js" type="text/javascript"></script>
     </body>
 </html>

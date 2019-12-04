@@ -47,15 +47,14 @@ public class svlQualis extends HttpServlet
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         response.setContentType("text/html;charset=UTF-8");
         String parametros = null;
         if(request.getParameter("evento") != null)
             parametros = new String(request.getParameter("evento").getBytes("ISO-8859-1"),"UTF-8");
         
-        PrintWriter out = response.getWriter();
+        
         try
         {
             if(parametros != null)
@@ -64,53 +63,66 @@ public class svlQualis extends HttpServlet
                 
                 if(filtro.equals("get"))
                 {
+                    PrintWriter out = response.getWriter();
                     String departamento = parametros.substring(parametros.indexOf("=") + 1);
                     
                     ctrDepartamento ctrDep = new ctrDepartamento();
                     List<String> resultado = new ctrQualis().get(ctrDep.getCodigo(departamento));
-
-                    out.print("<table cellpadding=\"2\" class=\"centered highlight responsive-table\" style=\"margin-left:50px; width:70%;\" id=\"tabela_qualis\">");
-                    out.print("<tr>");
-                    out.print("<td><b>Documento</b></th>");
-                    out.print("<td><b>Ano</b></th>");
-                    out.print("<td></th>");
-                    out.print("<td></th>");
-                    out.print("</tr>");
-
-                    for (int i = 0; i < resultado.size(); i++) 
+                    if(resultado.size() > 0)
                     {
-                        String[] aux = resultado.get(i).split(";",2);
-
+                        out.print("<table cellpadding=\"2\" class=\"centered highlight responsive-table\" style=\"margin-left:50px; width:70%;\" id=\"tabela_qualis\">");
                         out.print("<tr>");
-                        out.print("<td id=\"nome_documento\">" + aux[0] + "</td>");
-                        out.print("<td>" + aux[1] + "</td>");
-                        out.print("<td><div id=\"teste\">"
-                                + "<img src=\"Imagens/visualizar.png\" alt=\"Clique aqui para visualizar\" id= \"botao-visualizar-qualis\" onclick=\"clickVisualizar('"+aux[0]+ ";" + aux[1] + "')\" />"
-                                + "<span id=\"testespan\">Visualizar</span></div></td>");
-                         out.print("<td id=\"remover_q\"><div id=\"remover\">"
-                                + "<img src=\"Imagens/lixeira.png\" alt=\"Clique aqui para remover\" id= \"btnRemoverQualis\" onclick=\"clickremover('"+aux[0]+ ";" + aux[1] + "')\"/>"
-                                + "<span id=\"span-remover\">Remover</span></div></td>");
+                        out.print("<td><b>Documento</b></th>");
+                        out.print("<td><b>Ano</b></th>");
+                        out.print("<td></th>");
+                        out.print("<td></th>");
                         out.print("</tr>");
+
+                        for (int i = 0; i < resultado.size(); i++) 
+                        {
+                            String[] aux = resultado.get(i).split(";",2);
+
+                            out.print("<tr>");
+                            out.print("<td id=\"nome_documento\">" + aux[0] + "</td>");
+                            out.print("<td>" + aux[1] + "</td>");
+                            out.print("<td><div id=\"teste\">"
+                                    + "<img src=\"Imagens/visualizar.png\" alt=\"Clique aqui para baixar\" id= \"botao-visualizar-qualis\" onclick=\"clickVisualizar('"+aux[0]+ ";" + aux[1] + "')\" />"
+                                    + "<span id=\"testespan\">Baixar</span></div></td>");
+                             out.print("<td id=\"remover_q\"><div id=\"remover\">"
+                                    + "<img src=\"Imagens/lixeira.png\" alt=\"Clique aqui para remover\" id= \"btnRemoverQualis\" onclick=\"clickremover('"+aux[0]+ ";" + aux[1] + "')\"/>"
+                                    + "<span id=\"span-remover\">Remover</span></div></td>");
+                            out.print("</tr>");
+                        }
+                        out.print("</table>");
                     }
-                    out.print("</table>");
+                    else
+                    {
+                        out.println("<script type=\"text/javascript\">");
+                        out.println("alert('Não foram encontrados arquivos para este Departamento');");
+                        out.println("location='ImportarQualis.jsp';");
+                        out.println("</script>");
+                    }
                 }
                 else if(filtro.equals("down"))
                 {
+                    ctrDepartamento ctrDep = new ctrDepartamento();
+                    String nome_dep = parametros.substring(parametros.lastIndexOf(";") + 1);
+                    String[] content = new String(parametros.getBytes("ISO-8859-1"),"UTF-8").split(";");
+                    
                     OutputStream output = response.getOutputStream();
-                    FileInputStream in = new FileInputStream("");
+                    FileInputStream in = new ctrQualis().getArquivo(content[1], content[2], ctrDep.getCodigo(nome_dep));
                     byte[] buffer = new byte[4096];
                     int length;
-                    while ((length = in.read(buffer)) > 0){
+                    while ((length = in.read(buffer)) > 0)
+                    {
                         output.write(buffer, 0, length);
                     }
-                    in.close();
-                    out.flush();
+                    output.flush();
                 }
                 else if(filtro.equals("del"))
                 {
+                    PrintWriter out = response.getWriter();
                     ctrDepartamento ctrDep = new ctrDepartamento();
-                    Part filePart = request.getPart("fileInput"); // Retrieves <input type="file" name="file">
-                    String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
                     String nome_dep = new String(request.getParameter("sel-dep").getBytes("ISO-8859-1"),"UTF-8");
                     String[] content = new String(parametros.getBytes("ISO-8859-1"),"UTF-8").split(";");
                     
@@ -122,6 +134,7 @@ public class svlQualis extends HttpServlet
             }
             else
             {
+                PrintWriter out = response.getWriter();
                 Part filePart = request.getPart("fileInput"); // Retrieves <input type="file" name="file">
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
                 InputStream fileContent = filePart.getInputStream();
@@ -138,24 +151,10 @@ public class svlQualis extends HttpServlet
                     
             }
         }
-        catch(Exception e)
+        catch(IOException | ServletException e)
         {
             System.out.println(e.getMessage());
         }
-        
-        
-        /*try (PrintWriter out = response.getWriter()) {
-             TODO output your page here. You may use following sample code. 
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet svlQualis</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet svlQualis at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }*/
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
