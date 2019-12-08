@@ -3,9 +3,51 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 function ImportarCurriculo()
 {
+    event.preventDefault();
     
+    var form = $('#docente')[0];
+    
+    var data = new FormData(form);
+    
+    $.ajax(
+    {
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "svlDocente",
+        data: data,
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000,
+        success: function (data) 
+        {
+            if(data !== "salvou")
+                alert("Não foi possivel gravar o arquivo");
+            else
+                alert("Curriculo atualizado");
+        },
+        error: function (jqXHR, exception) 
+        {
+            var msg = '';
+            if (jqXHR.status === 0) 
+                msg = 'Not connect.\n Verify Network.';
+            else if (jqXHR.status == 404) 
+                msg = 'Requested page not found. [404]';
+            else if (jqXHR.status == 500) 
+                msg = 'Internal Server Error [500].';
+            else if (exception === 'timeout') 
+                msg = 'Time out error.';
+            else if (exception === 'abort') 
+                msg = 'Ajax request aborted.';
+            else 
+                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+            
+            alert(msg);
+        }
+    });
 }
 
 function changeDepartamento()
@@ -61,7 +103,6 @@ function carregaDocentes()
             $('#ultima-importacao').html(data);
             if ($('#ultima-importacao').is(':empty'))
             {
-                $("#ultima-importacao").replaceWith(divClone.clone()); 
                 alert("Não foi encontrado nenhum arquivo");
             }
             else   
@@ -96,7 +137,28 @@ for (i = 0; i < coll.length; i++)
 function clickDocente(nome)
 {
     document.getElementById("informacoes-docente").hidden = false;
-    $("#identificacao-lattes").html("Currículo Lates de "+nome);
+    $("#identificacao-lattes").html("Currículo Lattes de "+nome);
+    $('#nome-docente').val(nome);
+    
+    event.preventDefault(); // evita refresh da tela
+    let frm = $("#docente");    //form
+    var d = document.getElementById("nome-docente").value;
+    var dep = document.getElementById("sel-dep").value;
+    
+    jQuery.ajax(
+    {
+        type: "GET",
+        url: "svlDocente?evento=getDocumento;doc="+d+";"+dep,
+        data: frm.serialize(),
+        success: function (data) 
+        {        
+            $('#tabela_curriculo-tr').html(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) 
+        {
+            alert("Impossível carregar as informações");
+        }
+    });
 }
 
 function clickCurriculoTab(aux)
@@ -114,15 +176,14 @@ function clickCurriculoTab(aux)
         alert("ok");
 }
 
-function baixarCurriculo(conteudo)
+function baixarCurriculo()
 {
     event.preventDefault();
-    content = content + "";
-    var nome = content.substring(0,content.indexOf(";"));
+    var nome = $('#nome-docente').val();
     
     $.ajax(
     {
-        url: 'svlQualis?evento=down;'+content + ";" + $("#sel-dep").val(),
+        url: 'svlDocente?evento=down;'+nome,
         method: 'GET',
         xhrFields: 
         {
@@ -135,7 +196,7 @@ function baixarCurriculo(conteudo)
             binaryData.push(data);
             var url = window.URL.createObjectURL(new Blob(binaryData, {type: ".xml"}));
             a.href = url;
-            a.download = nome;
+            a.download = "Curriculo_"+nome+".xml";
             document.body.append(a);
             a.click();
             a.remove();
@@ -146,6 +207,47 @@ function baixarCurriculo(conteudo)
 
 function removerCurriculo()
 {
+    event.preventDefault();
     
+    var form = $('#docente')[0];
+      
+    var data = new FormData(form);
+    
+    $.ajax(
+    {
+        type: "POST",
+        enctype: 'multipart/form-data',
+        url: "svlDocente?evento=del;",
+        data: data,
+        processData: false,
+        contentType: false,
+        cache: false,
+        timeout: 600000,
+        success: function (data) 
+        {
+            if(data !== 'ok')
+                alert("Erro na exclusão");
+            else
+                alert("Arquivo excluído com sucesso");
+        },
+        error: function (jqXHR, exception) 
+        {
+            var msg = '';
+            if (jqXHR.status === 0) 
+                msg = 'Not connect.\n Verify Network.';
+            else if (jqXHR.status == 404) 
+                msg = 'Requested page not found. [404]';
+            else if (jqXHR.status == 500) 
+                msg = 'Internal Server Error [500].';
+            else if (exception === 'timeout') 
+                msg = 'Time out error.';
+            else if (exception === 'abort') 
+                msg = 'Ajax request aborted.';
+            else 
+                msg = 'Uncaught Error.\n' + jqXHR.responseText;
+            
+            alert(msg);
+            
+        }
+    });
 }
-

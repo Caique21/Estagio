@@ -37,7 +37,7 @@
         
         <div class="center" style="margin-top: 2%;">
             <label id="content-title"><b>Docentes</b></label>
-            <form name="docente"  method="POST" enctype="multipart/form-data" onsubmit="ImportarCurriculo()" id="docente">
+            <form name="docente" method="POST" enctype="multipart/form-data" onsubmit="ImportarCurriculo()" id="docente">
                 <div>
                     <input list="hosting-plan" name="sel-dep" type="text" placeholder="Selecione um Departamento" class="sel-dep" onchange="changeDepartamento()" id="sel-dep">
                     <datalist id="hosting-plan">
@@ -82,17 +82,7 @@
                             <div class="content" id="div-curriculo-docente">
                                 <table class="centered highlight responsive-table" id="tabela_curriculo">
                                     <tbody>
-                                        <tr>
-                                            <td id="identificacao-lattes"></td>
-                                            <td><div id="div-baixar-curriculo">
-                                                <img src="Imagens/visualizar.png" onclick="baixarCurriculo()" alt="Baixar Arquivo" id="btn-baixar-curriculo"/>
-                                                <span id="span-baixar">Baixar</span>
-                                            </div></td>
-                                            
-                                            <td><div id="div-remover-curriculo">
-                                                <img src="Imagens/lixeira.png" onclick="removerCurriculo()" alt="RemoverCurriculo" id="btn-remover-curriculo"/>
-                                                <span id="span-remover">Remover</span>
-                                            </div></td>
+                                        <tr id="tabela_curriculo-tr">
                                         </tr>
                                     </tbody>
                                 </table>
@@ -115,10 +105,12 @@
                                 </div>
                                 --%>
                                 <br>
-                                <input type="file" id="fileInput" name="fileInput" accept=".xls, .xlsx" disabled/>
+                                <input type="file" id="fileInput" name="fileInput" accept=".xml"/>
                                 <button type="submit" id="fileExport">
                                     Importar
                                 </button>
+                                
+                                <input type="text" id="nome-docente" name="nome-docente" hidden="true"/>
                             </div>
                         </div>
                     </div>

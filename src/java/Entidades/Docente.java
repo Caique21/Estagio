@@ -6,8 +6,11 @@
 package Entidades;
 
 import Banco.Conexao;
+import java.io.InputStream;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,17 +26,24 @@ public class Docente
     private Departamento departamento;
     private String nome;
     private int codigo;
-    private String curriculo;
+    private InputStream curriculo;
 
     public Docente()
     {
     }
 
-    public Docente(Departamento departamento, String nome, int codigo, String curriculo)
+    public Docente(Departamento departamento, String nome, int codigo, InputStream curriculo)
     {
         this.departamento = departamento;
         this.nome = nome;
         this.codigo = codigo;
+        this.curriculo = curriculo;
+    }
+
+    public Docente(Departamento departamento, String nome, InputStream curriculo)
+    {
+        this.departamento = departamento;
+        this.nome = nome;
         this.curriculo = curriculo;
     }
 
@@ -46,6 +56,11 @@ public class Docente
     public Docente(Departamento departamento, String nome)
     {
         this.departamento = departamento;
+        this.nome = nome;
+    }
+
+    public Docente(String nome)
+    {
         this.nome = nome;
     }
 
@@ -79,12 +94,36 @@ public class Docente
         this.codigo = codigo;
     }
 
-    public String getCurriculo()
+    public InputStream getCurriculo()
     {
-        return curriculo;
+        if(curriculo != null)
+            return curriculo;
+        else
+        {
+            ResultSet rs;
+            if(departamento != null)
+                rs = new Conexao().consultar("select docente_curriculo from docente where docente_nome = '" + nome + "' and departamento_id = " + departamento.getCodigo());
+            else
+                rs = new Conexao().consultar("select docente_curriculo from docente where docente_nome = '" + nome + "'");
+                
+            try 
+            {
+                if(rs != null && rs.next())
+                {
+                    this.curriculo = rs.getBinaryStream("docente_curriculo");
+                    return curriculo;
+                }
+            }
+            catch (SQLException ex) 
+            {
+                Logger.getLogger(Qualis.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
+            }
+        }
+        return null;
     }
 
-    public void setCurriculo(String curriculo)
+    public void setCurriculo(InputStream curriculo)
     {
         this.curriculo = curriculo;
     }
@@ -107,6 +146,61 @@ public class Docente
             Logger.getLogger(Docente.class.getName()).log(Level.SEVERE, null, ex);
         }
         return docentes;
+    }
+
+    public boolean salvar()
+    {
+        ResultSet rs = new Conexao().consultar("select docente_curriculo, docente_id from docente where departamento_id = " + departamento.getCodigo() + " and docente_nome = '" + nome + "'");
+        try 
+        {
+            if(rs.next())
+            {
+                String sql = "update docente set docente_curriculo = ? where docente_id = ?";
+        
+                Conexao con = new Conexao();
+                PreparedStatement p = con.getPreparedStatement(sql);
+
+                try 
+                {
+                    p.setBinaryStream(1, curriculo);
+                    p.setInt(2, rs.getInt("docente_id"));
+
+                    p.executeUpdate();
+                    return true;
+                }
+                catch(SQLException e)
+                {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(Docente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public boolean apagar()
+    {
+        String sql = "update docente set docente_curriculo = ? where docente_nome = ?";
+        
+        Conexao con = new Conexao();
+        PreparedStatement p = con.getPreparedStatement(sql);
+
+        try 
+        {
+            p.setNull(1,Types.INTEGER);
+            p.setString(2, nome);
+
+            p.executeUpdate();
+            return true;
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
     
     
