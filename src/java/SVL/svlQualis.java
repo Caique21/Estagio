@@ -72,10 +72,10 @@ public class svlQualis extends HttpServlet
                     {
                         out.print("<table cellpadding=\"2\" class=\"centered highlight responsive-table\" style=\"margin-left:50px; width:70%;\" id=\"tabela_qualis\">");
                         out.print("<tr>");
-                        out.print("<td><b>Documento</b></th>");
-                        out.print("<td><b>Ano</b></th>");
-                        out.print("<td></th>");
-                        out.print("<td></th>");
+                        out.print("<td><b>Documento</b></td>");
+                        out.print("<td><b>Ano</b></td>");
+                        out.print("<td></td>");
+                        out.print("<td></td>");
                         out.print("</tr>");
 
                         for (int i = 0; i < resultado.size(); i++) 

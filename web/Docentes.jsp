@@ -15,12 +15,15 @@
         <link href="CSS/materialize.css" rel="stylesheet" type="text/css"/>
         <link href="CSS/materialize.min.css" rel="stylesheet" type="text/css"/>
         <link href="CSS/main.css" rel="stylesheet" type="text/css"/>
+        <link href="CSS/docentes.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         
         <nav>
-            <div class="nav-wrapper" style="background-color: #346786;">
-                <a href="index.jsp" class="brand-logo right"><img src="Imagens/UnespLogo.jpg" alt="Logo Unesp" style="width: 64px;"/></a>
+            <div class="nav-wrapper">
+                <a href="index.jsp" class="brand-logo right">
+                    <img src="Imagens/UnespLogo.jpg" alt="Logo Unesp" style="width: 64px;"/>
+                </a>
                 <ul id="nav-mobile" class="left hide-on-med-and-down">
                     <li><a href="DepartamentoPage.jsp">Departamento</a></li>
                     <li><a href="">Lattes</a></li>
@@ -32,12 +35,12 @@
             </div>
         </nav>
         
-        <div class="center" style="margin-top: 5%;">
-            <label style="text-align: center; width: 75%;font-size: 35px; color: #346786;"><b>Docentes</b></label>
-            <form name="importar qualis"  method="POST" enctype="multipart/form-data" onsubmit="ImportarCurriculo()" id="importar_qualis">
+        <div class="center" style="margin-top: 2%;">
+            <label id="content-title"><b>Docentes</b></label>
+            <form name="docente"  method="POST" enctype="multipart/form-data" onsubmit="ImportarCurriculo()" id="docente">
                 <div>
-                    <input list="hosting-plan" name="sel-dep" type="text" placeholder="Selecione um Departamento" class="sel-dep" onchange="changeDepartamento()" id="sel-dep" style="width: 400px;">
-                    <datalist id="hosting-plan" class="testeabc">
+                    <input list="hosting-plan" name="sel-dep" type="text" placeholder="Selecione um Departamento" class="sel-dep" onchange="changeDepartamento()" id="sel-dep">
+                    <datalist id="hosting-plan">
                         <option value="Cartografia"></option>
                         <option value="Educação"></option>
                         <option value="Educação Física"></option>
@@ -52,12 +55,73 @@
                 </div>
                 <br>
                 
-                <div id="div-docentes" hidden="true" style="margin-top: 15px; margin-left: 200px; margin-bottom: 5px;">
-                    <table>
-                        <tr>
-                            nasjsnaidn
-                        </tr>
-                    </table>
+                <div id="div-docentes" hidden="true">
+                    <label id="label-lista-docentes"><b>Lista de Docentes</b></label>
+                    <br>
+                    <div id="table-wrapper">
+                        <div id="table-scroll">
+                            <table class="centered highlight responsive-table" id="tabela-docentes">
+                                <tbody id="table-docente-body">
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div id="informacoes-docente" hidden="true"> 
+                        <div>
+                            <a href="#div-dados-docente" class="collapsible" id="t">Dados do Docente</a>
+                            <div class="content" id="div-dados-docente">
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                            </div>
+                        </div>
+
+                        <br>
+                        <div>
+                            <a href="#div-curriculo-docente" class="collapsible" id="t">Curriculo do Docente</a>
+                            <div class="content" id="div-curriculo-docente">
+                                <table class="centered highlight responsive-table" id="tabela_curriculo">
+                                    <tbody>
+                                        <tr>
+                                            <td id="identificacao-lattes"></td>
+                                            <td><div id="div-baixar-curriculo">
+                                                <img src="Imagens/visualizar.png" onclick="baixarCurriculo()" alt="Baixar Arquivo" id="btn-baixar-curriculo"/>
+                                                <span id="span-baixar">Baixar</span>
+                                            </div></td>
+                                            
+                                            <td><div id="div-remover-curriculo">
+                                                <img src="Imagens/lixeira.png" onclick="removerCurriculo()" alt="RemoverCurriculo" id="btn-remover-curriculo"/>
+                                                <span id="span-remover">Remover</span>
+                                            </div></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <%--<div class="row">
+                                    <div class="col s12">
+                                        <ul class="tabs">
+                                            <li class="tab col s3" onclick="clickCurriculoTab('dados_gerais')"><a href="#test1">Dados Gerais</a></li>
+                                            <li class="tab col s3" onclick="clickCurriculoTab('formacao')"><a href="#test2">Test 2</a></li>
+                                            <li class="tab col s3"><a href="#test3">Disabled Tab</a></li>
+                                            <li class="tab col s3"><a href="#test4">Test 4</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                
+                                <div id="identificacao" hidden="true"> 
+                                        <a href="#div-dados-gerais" class="collapsible" id="t">Identificação</a>
+                                        <div class="content" id="div-dados-gerais">
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                        </div>
+                                </div>
+                                --%>
+                                <br>
+                                <input type="file" id="fileInput" name="fileInput" accept=".xls, .xlsx" disabled/>
+                                <button type="submit" id="fileExport">
+                                    Importar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
