@@ -20,7 +20,7 @@
         
         <nav>
             <div class="nav-wrapper" style="background-color: #346786;">
-                <a href="index.jsp" class="brand-logo right"><img src="Imagens/UnespLogo.jpg" alt="Logo Unesp" style="width: 64px;"/></a>
+                <a href="index.jsp" class="brand-logo right"><img src="Imagens/unesp-logo2.png" alt="Logo Unesp" style="width: 90px;"/></a>
                 <ul id="nav-mobile" class="left hide-on-med-and-down">
                     <li><a href="DepartamentoPage.jsp">Departamento</a></li>
                     <li><a href="">Lattes</a></li>

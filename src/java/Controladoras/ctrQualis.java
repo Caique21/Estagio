@@ -23,11 +23,11 @@ import java.util.logging.Logger;
  */
 public class ctrQualis
 {
-    public boolean salvar(String nome, InputStream arquivo, String ano, int dep_cod)
+    public boolean salvar(String nome, InputStream arquivo, String periodo, int dep_cod)
     {
         try 
         {
-            return new Qualis(ano, arquivo, nome).salvar(dep_cod);
+            return new Qualis(periodo, arquivo, nome).salvar(dep_cod);
         }
         catch (FileNotFoundException ex) 
         {
@@ -36,9 +36,9 @@ public class ctrQualis
         return false;
     }
     
-    public boolean apagar(String nome, String ano, int dep_cod)
+    public boolean apagar(String nome, String periodo, int dep_cod)
     {
-        return new Qualis(nome,ano).apagar(dep_cod);
+        return new Qualis(nome,periodo).apagar(dep_cod);
     }
     
     public List<String> get(int cod)
@@ -46,9 +46,9 @@ public class ctrQualis
         return new Qualis().get(cod);
     }
 
-    public FileInputStream getArquivo(String nome, String ano, int dep_cod)
+    public FileInputStream getArquivo(String nome, String periodo, int dep_cod)
     {
-        InputStream is = new Qualis(nome, ano).getArquivo(dep_cod);
+        InputStream is = new Qualis(nome, periodo).getArquivo(dep_cod);
         
         byte[] buffer;
         try 

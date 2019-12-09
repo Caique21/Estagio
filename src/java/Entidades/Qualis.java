@@ -7,8 +7,6 @@ package Entidades;
 
 import Banco.Conexao;
 import Controladoras.ctrQualis;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
@@ -100,7 +98,7 @@ public class Qualis
     
     public boolean salvar(int cod) throws FileNotFoundException
     {
-        String sql = "insert into qualis (departamento_id,qualis_ano,qualis_documento, qualis_nome) values (?,?,?,?)";
+        String sql = "insert into qualis (departamento_id,qualis_periodo,qualis_documento, qualis_nome) values (?,?,?,?)";
         
         Conexao con = new Conexao();
         PreparedStatement p = con.getPreparedStatement(sql);
@@ -133,7 +131,7 @@ public class Qualis
         {
             while(rs != null && rs.next())
             {
-                list.add(new String(rs.getString("qualis_nome") + ";" + rs.getString("qualis_ano")));
+                list.add(new String(rs.getString("qualis_nome") + ";" + rs.getString("qualis_periodo")));
             }
         }
         catch (SQLException ex) 
@@ -145,7 +143,7 @@ public class Qualis
 
     public boolean apagar(int dep_cod)
     {
-        String sql = "delete from qualis where qualis_nome = '$1' and qualis_ano = '$2' and departamento_id = $3";
+        String sql = "delete from qualis where qualis_nome = '$1' and qualis_periodo = '$2' and departamento_id = $3";
         sql = sql.replace("$1", nome);
         sql = sql.replace("$2", periodo);
         sql = sql.replace("$3", String.valueOf(dep_cod));

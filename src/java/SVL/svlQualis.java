@@ -12,8 +12,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Year;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -99,7 +111,6 @@ public class svlQualis extends HttpServlet
                     {
                         out.println("<script type=\"text/javascript\">");
                         out.println("alert('Não foram encontrados arquivos para este Departamento');");
-                        out.println("location='ImportarQualis.jsp';");
                         out.println("</script>");
                     }
                 }
@@ -138,16 +149,31 @@ public class svlQualis extends HttpServlet
                 Part filePart = request.getPart("fileInput"); // Retrieves <input type="file" name="file">
                 String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
                 InputStream fileContent = filePart.getInputStream();
+                
                 String[] content = fileName.split("_");
+ 
+                try
+                {
+                    Year year = Year.parse(content[content.length - 2]);
+                    String periodo = year.toString() + "-" + year.plusYears(3);
+                    
+                    ctrQualis ctr_qualis = new ctrQualis();
+                    ctrDepartamento ctr_dep = new ctrDepartamento();
+                    String nome_dep = new String(request.getParameter("sel-dep").getBytes("ISO-8859-1"), "UTF-8");
+                    if (ctr_qualis.salvar(fileName, fileContent, periodo, ctr_dep.getCodigo(nome_dep))) {
+                        out.print("gravou");
+                    }
+                    else {
+                        out.print("nao");
+                    }
+                }
+                catch(UnsupportedEncodingException e)
+                {
+                    out.print("nao");
+                }
                 
 
-                ctrQualis ctr_qualis = new ctrQualis();
-                ctrDepartamento ctr_dep = new ctrDepartamento();
-                String nome_dep = new String(request.getParameter("sel-dep").getBytes("ISO-8859-1"),"UTF-8");
-                if(ctr_qualis.salvar(fileName, fileContent,content[content.length - 2],ctr_dep.getCodigo(nome_dep)))
-                    out.print("gravou");
-                else
-                    out.print("nao");
+                
                     
             }
         }

@@ -16,13 +16,14 @@
         <link href="CSS/materialize.min.css" rel="stylesheet" type="text/css"/>
         <link href="CSS/main.css" rel="stylesheet" type="text/css"/>
         <link href="CSS/docentes.css" rel="stylesheet" type="text/css"/>
+        <link rel="icon" type="image/png" href="Imagens/unesp-logo3.png" sizes="16x16">
     </head>
     <body>
         
         <nav>
             <div class="nav-wrapper">
                 <a href="index.jsp" class="brand-logo right">
-                    <img src="Imagens/UnespLogo.jpg" alt="Logo Unesp" style="width: 64px;"/>
+                    <img src="Imagens/unesp-logo2-branco.png" alt="Logo Unesp" style="width: 90px;"/>
                 </a>
                 <ul id="nav-mobile" class="left hide-on-med-and-down">
                     <li><a href="DepartamentoPage.jsp">Departamento</a></li>
@@ -72,7 +73,10 @@
                         <div>
                             <a href="#div-dados-docente" class="collapsible" id="t">Dados do Docente</a>
                             <div class="content" id="div-dados-docente">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                <div class="input-field col s6" style="width: 200px;">
+                                    <input id="icon_prefix" type="text" class="validate">
+                                    <label for="icon_prefix" style="background: transparent;">First Name</label>
+                                </div>
                             </div>
                         </div>
 
@@ -122,6 +126,7 @@
         
         
         <script src="JS/docentes.js" type="text/javascript"></script>
+        <script src="JS/materialize.js" type="text/javascript"></script>
         <script src="JS/jquery-3.4.1.js" type="text/javascript"></script>
     </body>
 </html>

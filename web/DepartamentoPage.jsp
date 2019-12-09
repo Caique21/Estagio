@@ -15,11 +15,12 @@
         <link href="CSS/materialize.css" rel="stylesheet" type="text/css"/>
         <link href="CSS/materialize.min.css" rel="stylesheet" type="text/css"/>
         <link href="CSS/main.css" rel="stylesheet" type="text/css"/>
+        <link rel="icon" type="image/png" href="Imagens/unesp-logo3.png" sizes="16x16">
     </head>
     <body>
         <nav>
             <div class="nav-wrapper" style="background-color: #346786;">
-                <a href="index.jsp" class="brand-logo right"><img src="Imagens/UnespLogo.jpg" alt="Logo Unesp" style="width: 64px;"/></a>
+                <a href="index.jsp" class="brand-logo right"><img src="Imagens/unesp-logo2-branco.png" alt="Logo Unesp" style="width: 90px;"/></a>
                 <ul id="nav-mobile" class="left hide-on-med-and-down">
                     <li><a href="DepartamentoPage.jsp">Departamento</a></li>
                     <li><a href="">Lattes</a></li>

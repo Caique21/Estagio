@@ -43,13 +43,7 @@ function carregaQualis()
         success: function (data) 
         {        
             $('#ultima-importacao').html(data);
-            if ($('#ultima-importacao').is(':empty'))
-            {
-                $("#ultima-importacao").replaceWith(divClone.clone()); 
-                alert("Não foi encontrado nenhum arquivo");
-            }
-            else   
-                document.getElementById("label-ultimas-importacoes-qualis").hidden = false;
+            document.getElementById("label-ultimas-importacoes-qualis").hidden = false;
                 
         },
         error: function (jqXHR, textStatus, errorThrown) 
@@ -156,8 +150,10 @@ function clickremover(nome)
         timeout: 600000,
         success: function (data) 
         {
-            if(data.toString())
+            if(data === 'ok')
                 carregaQualis();
+            else
+                alert("Erro na exclusão");
         },
         error: function (jqXHR, exception) 
         {
