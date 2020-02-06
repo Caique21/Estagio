@@ -56,6 +56,18 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="col s11 m7" style="width: 20%;">
+                <div class="card">
+                    <div class="card-image center">
+                        <a href="Planilha.jsp"><img src="Imagens/planilha.jpg" alt="" id="icon" /></a>
+                    </div>
+                    <br>
+                    <div class="card-action center">
+                        <a href="#">Planilha</a>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <script src="JS/jquery-3.4.1.js" type="text/javascript"></script>

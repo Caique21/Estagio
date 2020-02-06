@@ -20,7 +20,9 @@
         
         <nav>
             <div class="nav-wrapper" style="background-color: #346786;">
-                <a href="index.jsp" class="brand-logo right"><img src="Imagens/unesp-logo2.png" alt="Logo Unesp" style="width: 90px;"/></a>
+                <a href="index.jsp" class="brand-logo right">
+                    <img src="Imagens/unesp-logo2-branco.png" alt="Logo Unesp" style="width: 90px;"/>
+                </a>
                 <ul id="nav-mobile" class="left hide-on-med-and-down">
                     <li><a href="DepartamentoPage.jsp">Departamento</a></li>
                     <li><a href="">Lattes</a></li>
@@ -36,8 +38,8 @@
             <label style="text-align: center; width: 75%;font-size: 35px; color: #346786;"><b>Importar Qualis</b></label>
             <form name="importar qualis"  method="POST" enctype="multipart/form-data" onsubmit="ImportarQualis()" id="importar_qualis">
                 <div>
-                    <input list="hosting-plan" name="sel-dep" type="text" placeholder="Selecione um Departamento" class="sel-dep" onchange="changeDepartamento()" id="sel-dep" style="width: 400px;">
-                    <datalist id="hosting-plan" class="testeabc">
+                    <input list="hosting-plan" name="sel-dep" type="text" placeholder="Selecione um Departamento" class="sel-dep" onchange="changeDepartamento()" id="sel-dep" style="width: 400px; text-align: center">
+                    <datalist id="hosting-plan">
                         <option value="Cartografia"></option>
                         <option value="Educação"></option>
                         <option value="Educação Física"></option>

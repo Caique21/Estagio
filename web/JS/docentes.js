@@ -251,3 +251,33 @@ function removerCurriculo()
         }
     });
 }
+
+function clickRadio(tipo)
+{
+    $('#hosting-plan').find('option').remove();
+    if(tipo.toString()==="Departamento")
+    {
+        document.getElementById("lista-docentes").hidden = false;
+        $('#sel-dep').attr("placeholder","Selecione um Departamento");
+        $('#hosting-plan').append(`<option value="${'Cartografia'}"></option>`); 
+        $('#hosting-plan').append(`<option value="${'Educação'}"></option>`); 
+        $('#hosting-plan').append(`<option value="${'Educação Física'}"></option>`); 
+        $('#hosting-plan').append(`<option value="${'Estatística'}"></option>`); 
+        $('#hosting-plan').append(`<option value="${'Física'}"></option>`); 
+        $('#hosting-plan').append(`<option value="${'Fisioterapia'}"></option>`); 
+        $('#hosting-plan').append(`<option value="${'Geografia'}"></option>`); 
+        $('#hosting-plan').append(`<option value="${'Matemática e Computação'}"></option>`); 
+        $('#hosting-plan').append(`<option value="${'Planejamento, Urbanismo e Ambiente'}"></option>`); 
+        $('#hosting-plan').append(`<option value="${'Quimica e Bioquimica'}"></option>`); 
+    }
+    else if(tipo.toString()==="Nome")
+    {
+        $('#sel-dep').attr("placeholder","Digite o nome do Docente");
+        document.getElementById("lista-docentes").hidden = true;
+    }
+    else if(tipo.toString()==="Matrícula")
+    {
+        $('#sel-dep').attr("placeholder","Digite a Matrícula do Docente");
+        document.getElementById("lista-docentes").hidden = true;
+    }
+}

@@ -38,10 +38,30 @@
         
         <div class="center" style="margin-top: 2%;">
             <label id="content-title"><b>Docentes</b></label>
+            
+            <div id="pesquisa">
+                <label id="label_pesquisa">Pesquisar por:</label>
+                <label>
+                    <input class="with-gap" name="group1" type="radio" checked="True" onchange="clickRadio('Departamento')"/>
+                    <span>Departamento</span>
+                </label>
+                
+                <label>
+                    <input class="with-gap" name="group1" type="radio" onchange="clickRadio('Nome')"/>
+                    <span>Nome</span>
+                </label>
+                
+                <label>
+                    <input class="with-gap" name="group1" type="radio" onchange="clickRadio('Matrícula')"/>
+                    <span>Matrícula</span>
+                </label>
+            </div>
+      
+    
             <form name="docente" method="POST" enctype="multipart/form-data" onsubmit="ImportarCurriculo()" id="docente">
                 <div>
-                    <input list="hosting-plan" name="sel-dep" type="text" placeholder="Selecione um Departamento" class="sel-dep" onchange="changeDepartamento()" id="sel-dep">
-                    <datalist id="hosting-plan">
+                    <input list="hosting-plan" name="sel-dep" type="text" placeholder="Selecione um Departamento" class="sel-dep" onchange="changeDepartamento()" id="sel-dep" style="text-align: center;">
+                    <datalist id="hosting-plan" class="t">
                         <option value="Cartografia"></option>
                         <option value="Educação"></option>
                         <option value="Educação Física"></option>
@@ -57,15 +77,17 @@
                 <br>
                 
                 <div id="div-docentes" hidden="true">
-                    <label id="label-lista-docentes"><b>Lista de Docentes</b></label>
-                    <br>
-                    <div id="table-wrapper">
-                        <div id="table-scroll">
-                            <table class="centered highlight responsive-table" id="tabela-docentes">
-                                <tbody id="table-docente-body">
-                                    
-                                </tbody>
-                            </table>
+                    <div id="lista-docentes"> 
+                        <label id="label-lista-docentes"><b>Lista de Docentes</b></label>
+                        <br>
+                        <div id="table-wrapper">
+                            <div id="table-scroll">
+                                <table class="centered highlight responsive-table" id="tabela-docentes">
+                                    <tbody id="table-docente-body">
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     

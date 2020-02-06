@@ -21,6 +21,18 @@ and open the template in the editor.
     color: #346786;
 }
 
+#pesquisa label
+{
+    margin-left: 30px;
+    color: #346786
+}
+
+#label_pesquisa
+{
+    font-size: 20px;
+    color: #346786
+}
+
 #sel-dep
 {
     width: 400px;

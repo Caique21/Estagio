@@ -1,0 +1,45 @@
+<%-- 
+    Document   : index
+    Created on : 06/11/2019, 15:27:39
+    Author     : carlo
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>PASD - Planilha Complemento de Adendo</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="./Css/main.css" rel="stylesheet" type="text/css"/>
+        <link href="CSS/planilha.css" rel="stylesheet" type="text/css"/>
+        <link href="CSS/materialize.css" rel="stylesheet" type="text/css"/>
+        <link href="CSS/materialize.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="icon" type="image/png" href="Imagens/unesp-logo3.png" sizes="16x16">
+    </head>
+    <body>
+        <nav>
+            <div class="nav-wrapper" style="background-color: #346786;">
+                <a href="index.jsp" class="brand-logo right"><img src="Imagens/unesp-logo2-branco.png" alt="Logo Unesp" style="width: 90px;"/></a>
+                <ul id="nav-mobile" class="left hide-on-med-and-down">
+                    <li><a href="DepartamentoPage.jsp">Departamento</a></li>
+                    <li><a href="">Lattes</a></li>
+                    <li><a href="">Relatórios</a></li>
+                </ul>
+                <div class="brand-logo center" style="font-size: 25px">
+                    Programa de Assistência à Secretaria Departamental
+                </div>
+            </div>
+        </nav>
+        
+         <div class="center" style="margin-top: 2%;">
+            <label id="content-title"><b>Planilha Complemento de Adendo</b></label>
+         </div>
+
+        
+        <script src="JS/jquery-3.4.1.js" type="text/javascript"></script>
+        <script src="JS/main.js" type="text/javascript"></script>
+        <script src="JS/materialize.js" type="text/javascript"></script>
+        <script src="JS/materialize.min.js" type="text/javascript"></script>
+   </body>
+</html>
