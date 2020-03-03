@@ -12,6 +12,7 @@
         <title>PASD - Docentes</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="CSS/login.css" rel="stylesheet" type="text/css"/>
         <link href="CSS/materialize.css" rel="stylesheet" type="text/css"/>
         <link href="CSS/materialize.min.css" rel="stylesheet" type="text/css"/>
         <link href="CSS/main.css" rel="stylesheet" type="text/css"/>
@@ -55,12 +56,20 @@
                     <input class="with-gap" name="group1" type="radio" onchange="clickRadio('Matrícula')"/>
                     <span>Matrícula</span>
                 </label>
+                
+                
+                <div class="fixed-action-btn" id="refresh" onclick="atualizaDocentes()">
+                    <a class="btn-floating btn tooltipped waves-effect waves-light blue" data-position="bottom" data-tooltip="I am a tooltip">
+                        <i class="large material-icons" id="refresh-docentes">refresh</i>
+                    </a>
+                </div>
+                
             </div>
       
     
             <form name="docente" method="POST" enctype="multipart/form-data" onsubmit="ImportarCurriculo()" id="docente">
                 <div>
-                    <input list="hosting-plan" name="sel-dep" type="text" placeholder="Selecione um Departamento" class="sel-dep" onchange="changeDepartamento()" id="sel-dep" style="text-align: center;">
+                    <input list="hosting-plan" name="sel-dep" type="text" placeholder="Selecione um Departamento" class="sel-dep" onchange="changeDepartamento()" id="sel-dep" style="text-align: center;"  onclick="teste()">
                     <datalist id="hosting-plan" class="t">
                         <option value="Cartografia"></option>
                         <option value="Educação"></option>
@@ -144,8 +153,6 @@
             </form>
         </div>
            
-            
-        
         
         <script src="JS/docentes.js" type="text/javascript"></script>
         <script src="JS/materialize.js" type="text/javascript"></script>

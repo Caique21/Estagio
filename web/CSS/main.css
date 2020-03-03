@@ -1,3 +1,8 @@
+html
+{
+    height: 100%;
+}
+
 #table-header
 {
     width: 100%;
@@ -250,4 +255,8 @@
 {
     width: 100px; 
     margin-left: 75px;
+}
+
+html{
+    height: 295px;
 }

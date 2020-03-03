@@ -3,6 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+$(document).ready(function () {
+    $('.tooltipped').tooltip();
+});
+        
+
+function atualizaDocentes()
+{
+    alert("entrou");
+}
 
 function ImportarCurriculo()
 {
@@ -85,6 +94,23 @@ function changeDepartamento()
     {
         document.getElementById("div-docentes").hidden = true;
     }
+}
+
+function teste()
+{
+    jQuery.ajax(
+    {
+        type: "GET",
+        url: "svlDocente?evento=busca;Roseli Garcia do Nascimento Zacarias",
+        success: function (data)
+        {
+            alert("achou");
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert("Impossível carregar as informações");
+        }
+    });
 }
 
 function carregaDocentes()
@@ -281,3 +307,6 @@ function clickRadio(tipo)
         document.getElementById("lista-docentes").hidden = true;
     }
 }
+
+
+

@@ -8,13 +8,24 @@ package SVL;
 import Controladoras.ctrDepartamento;
 import Controladoras.ctrDocente;
 import Controladoras.ctrQualis;
+import Entidades.Departamento;
+import Entidades.Docente;
+import com.sun.xml.internal.ws.message.Util;
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.net.URL;
+import java.net.URLConnection;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.json.Json;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +33,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import jdk.nashorn.internal.parser.JSONParser;
+import org.json.JSONObject;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -124,6 +142,84 @@ public class svlDocente extends HttpServlet
                 }
                 output.flush();
             }
+            else if(filtro.equals("busca"))
+            {
+                /*String nome = parametros.substring(parametros.indexOf(";")+1);
+                nome = nome.replace(" ", "%20");
+                String url = "https://devel.bauru.unesp.br/rh/api/v3/servidoresPublicosBasic/?nome=" + nome;
+                StringBuilder result = new StringBuilder();
+              
+                URLConnection urlConnection = new URL(url).openConnection();
+                urlConnection.setRequestProperty("Content-Type", "application/json");
+
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    result.append(new String(line.getBytes("ISO-8859-1"),"UTF-8"));
+                }
+                in.close();
+                reader.close();
+                    
+                line = result.toString();
+                line = line.replace("[","").replace("]","");
+                
+                JSONObject json = new JSONObject(line);
+                
+                System.out.println(json.getString("tipo"));*/
+                
+                String url = "https://devel.bauru.unesp.br/rh/api/v3/servidoresPublicosBasic/?nomeLotacaoOficial=Departamento%20de%20Matemática%20e%20Computação";
+                
+                StringBuilder result = new StringBuilder();
+              
+                URLConnection urlConnection = new URL(url).openConnection();
+                urlConnection.setRequestProperty("Content-Type", "application/json");
+
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    result.append(new String(line.getBytes("ISO-8859-1"),"UTF-8"));
+                }
+                in.close();
+                reader.close();
+                    
+                line = result.toString();
+                
+                String[] docentes = line.split("matricula");
+                
+                ctrDocente ctrDoc = new ctrDocente();
+                
+                for(int i = 1; i < docentes.length; i++)
+                {
+                    docentes[i] = "matricula" + docentes[i];
+                    docentes[i] = docentes[i].replaceAll("\"", "");
+                    
+                    if(docentes[i].indexOf("campus:Câmpus de Presidente Prudente") > 0)
+                    {
+                        String matricula = docentes[i].substring(docentes[i].indexOf("matricula"), docentes[i].indexOf(",", docentes[i].indexOf("matricula")));
+                        matricula = matricula.replace("\"", "").replace("matricula", "");
+
+                        String nome = docentes[i].substring(docentes[i].lastIndexOf("nome:"));
+                        nome = nome.substring(0,nome.indexOf(","));
+                        
+                        if(docentes[i].substring(docentes[i].indexOf("ativo")+6, docentes[i].indexOf(",", docentes[i].indexOf("ativo"))).equals("true"))
+                        {
+                            if(!ctrDoc.consulta(Integer.parseInt(matricula)))
+                                ctrDoc.salvar(nome, null, i, i);
+                        }
+                        else
+                        {
+                            if(ctrDoc.consulta(Integer.parseInt(matricula)))
+                                ctrDoc.apagar(nome, 8);
+                        }
+                    }
+                }
+            }
         }
         else
         {
@@ -185,4 +281,100 @@ public class svlDocente extends HttpServlet
         return "Short description";
     }// </editor-fold>
 
-}
+}/*
+[
+  {
+    "matricula": "3912620",
+    "lotacaoPrestacao": 
+    {
+      "nome": "Diretoria",
+      "unidadeUniversitaria": 
+        {
+        "sigla": "FCT",
+        "campus": "Câmpus de Presidente Prudente",
+        "descricaoCampusSigla": "Câmpus de Presidente Prudente - FCT",
+        "id": 25,
+        "cnpj": "48.031.918/0009-81",
+        "razaoSocial": "Faculdade de Ciências e Tecnologia de Presidente Prudente",
+        "email": null,
+        "nome": "Faculdade de Ciências e Tecnologia",
+        "nomeAbreviado": null,
+        "idPessoa": null
+        },
+      "id": 392
+    },
+    "lotacaoOficial": 
+    {
+      "nome": "Departamento de Matemática e Computação",
+      "unidadeUniversitaria": 
+        {
+        "sigla": "FCT",
+        "campus": "Câmpus de Presidente Prudente",
+        "descricaoCampusSigla": "Câmpus de Presidente Prudente - FCT",
+        "id": 25,
+        "cnpj": "48.031.918/0009-81",
+        "razaoSocial": "Faculdade de Ciências e Tecnologia de Presidente Prudente",
+        "email": null,
+        "nome": "Faculdade de Ciências e Tecnologia",
+        "nomeAbreviado": null,
+        "idPessoa": null
+        },
+      "id": 390
+    },
+    "tipo": "DOCENTE",
+    "regimeJuridico": "CLT",
+    "ultimoDiaTrabalhado": null,
+    "funcaoTitular": 
+    {
+      "nome": "Professor Assistente",
+      "codigo": "5002",
+      "cbo": "2345-20",
+      "id": 625
+    },
+    "ativo": true,
+    "docenteData": 
+    {
+      "regimeTrabalho": 
+        {
+        "tipo": "RDIDP",
+        "dataAplicacao": "2006-08-18",
+        "dataConfirmacao": "2010-12-02",
+        "dataAlteracao": null
+        },
+      "funcaoExercida": 
+       {
+        "nome": "Professor Assistente Doutor",
+        "codigo": "5004",
+        "cbo": "2345-10",
+        "id": 627
+       },
+      "referencia": "MS3_2",
+      "titulacao": "DOUTOR"
+    },
+    "dataAdmissao": "2006-02-21",
+    "id": 17966,
+    "status": "EM_ATIVIDADE",
+    "dataNascimento": "1969-02-23",
+    "cpf": "09768516879",
+    "sexo": "MASCULINO",
+    "idPessoaFisica": 110189,
+    "rgNumero": "18.232.384-5",
+    "rgOrgaoEmissor": "SSP",
+    "estadoCivil": "SEPARADO",
+    "escolaridade": "DOUTORADO",
+    "nacionalidade": "BRASILEIRO_NATO",
+    "nomePai": "Sebastiao Garcia",
+    "nomeMae": "Nedyr Avellaneda Garcia       ",
+    "nomeConjuge": "",
+    "niDPME": null,
+    "tipoSanguineo": null,
+    "lateralidadeMotora": null,
+    "nomeSocial": "",
+    "nomeSocialAbreviado": "",
+    "identidadeGenero": null,
+    "email": "rogerio.garcia@unesp.br",
+    "nome": "Rogério Eduardo Garcia",
+    "nomeAbreviado": "Rogerio Eduardo Garcia",
+    "idPessoa": 110711
+  }
+]*/

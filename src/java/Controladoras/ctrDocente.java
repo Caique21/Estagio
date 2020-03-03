@@ -7,7 +7,6 @@ package Controladoras;
 
 import Entidades.Departamento;
 import Entidades.Docente;
-import Entidades.Qualis;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -29,9 +28,14 @@ public class ctrDocente
         return new Docente().getDocentes(dep_cod);
     }
 
-    public boolean salvar(String docente, InputStream fileContent, int codigo)
+    public boolean salvar(String docente, InputStream fileContent, int departamento)
     {
-        return new Docente(new Departamento(codigo), docente, fileContent).salvar();
+        return new Docente(new Departamento(departamento), docente, fileContent).salvar();
+    }
+    
+    public boolean salvar(String docente, InputStream fileContent, int departamento, int codigo)
+    {
+        return new Docente(new Departamento(departamento), docente, fileContent).salvar();
     }
 
     public boolean getCurriculo(String docente,int departamento)
@@ -71,5 +75,11 @@ public class ctrDocente
     {
         Docente d = new Docente(new Departamento(departamento), docente);
         return d.apagar();
+    }
+    
+    public boolean consulta(int codigo)
+    {
+        Docente d = new Docente(codigo);
+        return d == null;
     }
 }

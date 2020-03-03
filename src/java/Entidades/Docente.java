@@ -32,6 +32,32 @@ public class Docente
     {
     }
 
+    public Docente(int codigo) 
+    {
+        this.codigo = codigo;
+       
+        ResultSet rs = new Conexao().consultar("select docente_nome, departamento_id where docente_id = " + codigo);
+        try 
+        {
+            if(rs != null && rs.next())
+            {
+                this.nome = rs.getString("docente_nome");
+                this.departamento = new Departamento(rs.getInt("departamento_id"));
+            }
+        } 
+        catch (SQLException ex) 
+        {
+            Logger.getLogger(Docente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Docente(Departamento departamento, String nome, int codigo) 
+    {
+        this.departamento = departamento;
+        this.nome = nome;
+        this.codigo = codigo;
+    }
+
     public Docente(Departamento departamento, String nome, int codigo, InputStream curriculo)
     {
         this.departamento = departamento;
@@ -147,8 +173,18 @@ public class Docente
         }
         return docentes;
     }
-
+    
     public boolean salvar()
+    {
+        String sql ="insert into docente (docente_id, docente_nome, departamento_id) values ($1,'$2',$3)";
+        sql = sql.replace("$1", String.valueOf(codigo));
+        sql = sql.replace("$2", nome);
+        sql = sql.replace("$3", String.valueOf(departamento.getCodigo()));
+        
+        return new Conexao().manipular(sql);
+    }
+
+    public boolean alterar()
     {
         ResultSet rs = new Conexao().consultar("select docente_curriculo, docente_id from docente where departamento_id = " + departamento.getCodigo() + " and docente_nome = '" + nome + "'");
         try 
