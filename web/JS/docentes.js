@@ -10,7 +10,26 @@ $(document).ready(function () {
 
 function atualizaDocentes()
 {
-    alert("entrou");
+    var departamentos = ["Cartografia","Educação","Educação Física","Estatística",
+        "Física","Fisioterapia","Geografia","Matemática e Computação","Planejamento, Urbanismo e Ambiente","Quimica e Bioquimica"];
+    
+    for(i = 0; i < departamentos.length; i++)
+    {
+        jQuery.ajax(
+        {
+            type: "GET",
+            url: "svlDocente?evento=refresh;" + departamentos[i],
+            success: function (data)
+            {
+                alert("achou");
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert("Impossível carregar as informações");
+            }
+        });
+    }
+    
 }
 
 function ImportarCurriculo()
@@ -96,7 +115,7 @@ function changeDepartamento()
     }
 }
 
-function teste()
+/*function teste()
 {
     jQuery.ajax(
     {
@@ -111,7 +130,7 @@ function teste()
             alert("Impossível carregar as informações");
         }
     });
-}
+}*/
 
 function carregaDocentes()
 {

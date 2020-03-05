@@ -7,10 +7,6 @@ package SVL;
 
 import Controladoras.ctrDepartamento;
 import Controladoras.ctrDocente;
-import Controladoras.ctrQualis;
-import Entidades.Departamento;
-import Entidades.Docente;
-import com.sun.xml.internal.ws.message.Util;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -23,9 +19,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.json.Json;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -33,13 +26,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.json.JSONObject;
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
 
 /**
  *
@@ -144,7 +131,7 @@ public class svlDocente extends HttpServlet
             }
             else if(filtro.equals("busca"))
             {
-                /*String nome = parametros.substring(parametros.indexOf(";")+1);
+                String nome = parametros.substring(parametros.indexOf(";")+1);
                 nome = nome.replace(" ", "%20");
                 String url = "https://devel.bauru.unesp.br/rh/api/v3/servidoresPublicosBasic/?nome=" + nome;
                 StringBuilder result = new StringBuilder();
@@ -168,9 +155,16 @@ public class svlDocente extends HttpServlet
                 
                 JSONObject json = new JSONObject(line);
                 
-                System.out.println(json.getString("tipo"));*/
+                System.out.println(json.getString("tipo"));
                 
-                String url = "https://devel.bauru.unesp.br/rh/api/v3/servidoresPublicosBasic/?nomeLotacaoOficial=Departamento%20de%20Matemática%20e%20Computação";
+                
+            }
+            else if(filtro.equals("refresh"))
+            {
+                String dep = parametros.substring(parametros.indexOf(";")+1);
+                dep = dep.replace(" ", "%20");
+                
+                String url = "https://devel.bauru.unesp.br/rh/api/v3/servidoresPublicosBasic/?nomeLotacaoOficial=Departamento%20de%20" + dep;
                 
                 StringBuilder result = new StringBuilder();
               

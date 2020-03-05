@@ -65,7 +65,7 @@
                 </div>
                 
             </div>
-      
+            
     
             <form name="docente" method="POST" enctype="multipart/form-data" onsubmit="ImportarCurriculo()" id="docente">
                 <div>

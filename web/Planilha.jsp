@@ -38,7 +38,7 @@
                 <div class="indeterminate"></div>
             </div>-->
 
-            <div class="row">
+            <div class="row" id="bar">
                 <div class="col s12">
                     <ul class="tabs tabs-fixed-width z-depth-1">
                         <li class="tab"><a href="#test-swipe-1" style="color: blue;">Test 1</a></li>
