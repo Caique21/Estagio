@@ -58,7 +58,7 @@
                 </label>
             </div>
       
-            <div class="fixed-action-btn" id="refresh" onclick="sla()">
+            <div class="fixed-action-btn" id="refresh" onclick="atualizaDocente()">
                 <a class="btn-floating btn tooltipped waves-effect waves-light blue" data-position="bottom" data-tooltip="I am a tooltip" id="aux">
                     <i class="large material-icons" id="refresh-docentes">refresh</i>
                 </a>

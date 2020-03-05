@@ -8,9 +8,27 @@ $(document).ready(function () {
 });
         
 
-function atualizaDocentes()
+function atualizaDocente()
 {
-    alert("entrou");
+    var departamentos = ["Cartografia","Educação","Educação Física","Estatística","Física","Fisioterapia","Geografia",
+        "Matemática e Computação","Planejamento, Urbanismo e Ambiente","Quimica e Bioquimica"];
+    
+    for(i =0 ; i < departamentos.length; i++)
+    {
+        jQuery.ajax(
+        {
+            type: "GET",
+            url: "svlDocente?evento=refresh;"+departamentos[i],
+            success: function (data)
+            {
+                alert("achou");
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert("Impossível carregar as informações");
+            }
+        });
+    }
 }
 
 function ImportarCurriculo()
@@ -94,23 +112,6 @@ function changeDepartamento()
     {
         document.getElementById("div-docentes").hidden = true;
     }
-}
-
-function teste()
-{
-    jQuery.ajax(
-    {
-        type: "GET",
-        url: "svlDocente?evento=busca;Roseli Garcia do Nascimento Zacarias",
-        success: function (data)
-        {
-            alert("achou");
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert("Impossível carregar as informações");
-        }
-    });
 }
 
 function carregaDocentes()

@@ -164,7 +164,7 @@ public class svlDocente extends HttpServlet
                 String dep = parametros.substring(parametros.indexOf(";")+1);
                 dep = dep.replace(" ", "%20");
                 
-                String url = "https://devel.bauru.unesp.br/rh/api/v3/servidoresPublicosBasic/?nomeLotacaoOficial=Departamento%20" + dep;
+                String url = "https://devel.bauru.unesp.br/rh/api/v3/servidoresPublicosBasic/?nomeLotacaoOficial=Departamento%20de%20" + dep;
                 
                 StringBuilder result = new StringBuilder();
               
