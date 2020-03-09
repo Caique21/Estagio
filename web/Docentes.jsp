@@ -57,12 +57,16 @@
                     <span>Matrícula</span>
                 </label>
             </div>
+<<<<<<< HEAD
       
             <div class="fixed-action-btn" id="refresh" onclick="atualizaDocente()">
                 <a class="btn-floating btn tooltipped waves-effect waves-light blue" data-position="bottom" data-tooltip="I am a tooltip" id="aux">
                     <i class="large material-icons" id="refresh-docentes">refresh</i>
                 </a>
             </div>
+=======
+            
+>>>>>>> 5402ea68c6e18978b3bb0c1fafc837fae3a5de57
     
             <form name="docente" method="POST" enctype="multipart/form-data" onsubmit="ImportarCurriculo()" id="docente">
                 <div>

@@ -10,15 +10,26 @@ $(document).ready(function () {
 
 function atualizaDocente()
 {
+<<<<<<< HEAD
     var departamentos = ["Cartografia","Educação","Educação Física","Estatística","Física","Fisioterapia","Geografia",
         "Matemática e Computação","Planejamento, Urbanismo e Ambiente","Quimica e Bioquimica"];
     
     for(i = 0 ; i < departamentos.length; i++)
+=======
+    var departamentos = ["Cartografia","Educação","Educação Física","Estatística",
+        "Física","Fisioterapia","Geografia","Matemática e Computação","Planejamento, Urbanismo e Ambiente","Quimica e Bioquimica"];
+    
+    for(i = 0; i < departamentos.length; i++)
+>>>>>>> 5402ea68c6e18978b3bb0c1fafc837fae3a5de57
     {
         jQuery.ajax(
         {
             type: "GET",
+<<<<<<< HEAD
             url: "svlDocente?evento=refresh;"+departamentos[i],
+=======
+            url: "svlDocente?evento=refresh;" + departamentos[i],
+>>>>>>> 5402ea68c6e18978b3bb0c1fafc837fae3a5de57
             success: function (data)
             {
                 alert("achou");
@@ -29,6 +40,10 @@ function atualizaDocente()
             }
         });
     }
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 5402ea68c6e18978b3bb0c1fafc837fae3a5de57
 }
 
 function ImportarCurriculo()
@@ -114,6 +129,26 @@ function changeDepartamento()
     }
 }
 
+<<<<<<< HEAD
+=======
+/*function teste()
+{
+    jQuery.ajax(
+    {
+        type: "GET",
+        url: "svlDocente?evento=busca;Roseli Garcia do Nascimento Zacarias",
+        success: function (data)
+        {
+            alert("achou");
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert("Impossível carregar as informações");
+        }
+    });
+}*/
+
+>>>>>>> 5402ea68c6e18978b3bb0c1fafc837fae3a5de57
 function carregaDocentes()
 {
     event.preventDefault(); // evita refresh da tela

@@ -48,7 +48,11 @@
                 <div class="indeterminate"></div>
             </div>-->
 
+<<<<<<< HEAD
             <div class="row" style="height: 200px;">
+=======
+            <div class="row" id="bar">
+>>>>>>> 5402ea68c6e18978b3bb0c1fafc837fae3a5de57
                 <div class="col s12">
                     <ul class="tabs tabs-fixed-width z-depth-1" style="height: 55px;">
                         <li class="tab"><a href="#test-swipe-1" style="color: blue;">AGD</a></li>
