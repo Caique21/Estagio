@@ -13,7 +13,7 @@ function atualizaDocente()
     var departamentos = ["Cartografia","Educação","Educação Física","Estatística","Física","Fisioterapia","Geografia",
         "Matemática e Computação","Planejamento, Urbanismo e Ambiente","Quimica e Bioquimica"];
     
-    for(i =0 ; i < departamentos.length; i++)
+    for(i = 0 ; i < departamentos.length; i++)
     {
         jQuery.ajax(
         {

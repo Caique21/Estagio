@@ -35,7 +35,7 @@ public class ctrDocente
     
     public boolean salvar(String docente, InputStream fileContent, int departamento, int codigo)
     {
-        return new Docente(new Departamento(departamento), docente, fileContent).salvar();
+        return new Docente(new Departamento(departamento), docente, codigo, fileContent).salvar();
     }
 
     public boolean getCurriculo(String docente,int departamento)
@@ -74,6 +74,12 @@ public class ctrDocente
     public boolean apagar(String docente, int departamento)
     {
         Docente d = new Docente(new Departamento(departamento), docente);
+        return d.apagar();
+    }
+    
+    public boolean apagar(int codigo, int departamento)
+    {
+        Docente d = new Docente(new Departamento(departamento), codigo);
         return d.apagar();
     }
     

@@ -5,4 +5,12 @@
     color: #346786;
 }
 
+#table-wrapper p
+{
+    width: 100%; color: blue; font-size: 200%;
+}
 
+.active
+{
+    color: blue;
+}

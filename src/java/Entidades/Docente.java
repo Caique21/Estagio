@@ -36,7 +36,7 @@ public class Docente
     {
         this.codigo = codigo;
        
-        ResultSet rs = new Conexao().consultar("select docente_nome, departamento_id where docente_id = " + codigo);
+        ResultSet rs = new Conexao().consultar("select docente_nome, departamento_id from docente where docente_id = " + codigo);
         try 
         {
             if(rs != null && rs.next())
@@ -219,24 +219,12 @@ public class Docente
 
     public boolean apagar()
     {
-        String sql = "update docente set docente_curriculo = ? where docente_nome = ?";
+        String sql = "delete from docente where docente_id = $1 and departamento_id = $2";
         
-        Conexao con = new Conexao();
-        PreparedStatement p = con.getPreparedStatement(sql);
-
-        try 
-        {
-            p.setNull(1,Types.INTEGER);
-            p.setString(2, nome);
-
-            p.executeUpdate();
-            return true;
-        }
-        catch(SQLException e)
-        {
-            System.out.println(e.getMessage());
-        }
-        return false;
+        sql = sql.replace("$1", String.valueOf(codigo));
+        sql = sql.replace("$2", String.valueOf(departamento.getCodigo()));
+        
+        return new Conexao().manipular(sql);
     }
     
     

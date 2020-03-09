@@ -187,6 +187,7 @@ public class svlDocente extends HttpServlet
                 String[] docentes = line.split("matricula");
                 
                 ctrDocente ctrDoc = new ctrDocente();
+                ctrDepartamento ctrDep = new ctrDepartamento();
                 
                 for(int i = 1; i < docentes.length; i++)
                 {
@@ -196,20 +197,20 @@ public class svlDocente extends HttpServlet
                     if(docentes[i].indexOf("campus:Câmpus de Presidente Prudente") > 0)
                     {
                         String matricula = docentes[i].substring(docentes[i].indexOf("matricula"), docentes[i].indexOf(",", docentes[i].indexOf("matricula")));
-                        matricula = matricula.replace("\"", "").replace("matricula", "");
+                        matricula = matricula.replace("\"", "").replace("matricula:", "");
 
                         String nome = docentes[i].substring(docentes[i].lastIndexOf("nome:"));
-                        nome = nome.substring(0,nome.indexOf(","));
+                        nome = nome.substring(0,nome.indexOf(",")).replace("nome:", "");
                         
                         if(docentes[i].substring(docentes[i].indexOf("ativo")+6, docentes[i].indexOf(",", docentes[i].indexOf("ativo"))).equals("true"))
                         {
-                            if(!ctrDoc.consulta(Integer.parseInt(matricula)))
-                                ctrDoc.salvar(nome, null, i, i);
+                            if(ctrDoc.consulta(Integer.parseInt(matricula)))
+                                ctrDoc.salvar(nome, null, ctrDep.getCodigo(dep.replace("%20", " ")), Integer.parseInt(matricula));
                         }
                         else
                         {
-                            if(ctrDoc.consulta(Integer.parseInt(matricula)))
-                                ctrDoc.apagar(nome, 8);
+                            if(!ctrDoc.consulta(Integer.parseInt(matricula)))
+                                ctrDoc.apagar(Integer.parseInt(matricula), ctrDep.getCodigo(dep.replace("%20", " ")));
                         }
                     }
                 }
